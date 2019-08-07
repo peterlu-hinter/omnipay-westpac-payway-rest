@@ -40,6 +40,18 @@ class Gateway extends AbstractGateway
         return 'Westpac PayWay REST API';
     }
 
+    /**
+     * Get gateway short name
+     *
+     * This name can be used with GatewayFactory as an alias of the gateway class,
+     * to create new instances of this gateway.
+     * @return string
+     */
+    public function getShortName()
+    {
+        return 'PayWay';
+    }
+
     public function getDefaultParameters()
     {
         return array(
