@@ -1,0 +1,27 @@
+{
+    "name": "digistorm/omnipay-westpac-payway-rest",
+    "type": "library",
+    "description": "Westpac PayWay REST API driver for the Omnipay payment processing library",
+    "keywords": [
+        "gateway",
+        "merchant",
+        "omnipay",
+        "pay",
+        "payment",
+        "westpac",
+        "payway"
+    ],
+    "homepage": "https://github.com/digistorm/omnipay-westpac-payway-rest",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": { "Omnipay\\WestpacPaywayRest\\" : "src/" }
+    },
+    "require": {
+        "omnipay/common": "^3"
+    },
+    "require-dev": {
+        "omnipay/tests": "^3",
+        "phpunit/phpunit": "^5.7|^6"
+    },
+    "prefer-stable": true
+}
