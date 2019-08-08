@@ -10,6 +10,8 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     /** @var string Endpoint URL */
     protected $endpoint = 'https://api.payway.com.au/rest/v1';
 
+    abstract public function getEndpoint();
+
     /**
      * Get API publishable key
      * @return string
@@ -213,7 +215,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
         // set content type
         if ($this->getHttpMethod() !== 'GET') {
-            $headers['Content-Type']    = 'application/x-www-form-urlencoded';
+            $headers['Content-Type'] = 'application/x-www-form-urlencoded';
         }
 
         // prevent duplicate POSTs
@@ -226,69 +228,35 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
     /**
      * Send data request
-     * @param  [type] $data [description]
-     * @return [type]       [description]
+     *
+     * @param $data
+     *
+     * @return \Omnipay\Common\Message\ResponseInterface|\Omnipay\WestpacPaywayRest\Message\Response
      */
     public function sendData($data)
     {
-        // enforce TLS >= v1.2 (https://www.payway.com.au/rest-docs/index.html#basics)
-        $config = $this->httpClient->getConfig();
-        $curlOptions = $config->get('curl.options');
-        $curlOptions[CURLOPT_SSLVERSION] = 6;
-        $config->set('curl.options', $curlOptions);
-        $this->httpClient->setConfig($config);
+        // get the appropriate API key
+        $apiKey = ($this->getUseSecretKey()) ? $this->getApiKeySecret() : $this->getApiKeyPublic();
 
-        // don't throw exceptions for 4xx errors
-        $this->httpClient->getEventDispatcher()->addListener(
-            'request.error',
-            function ($event) {
-                if ($event['response']->isClientError()) {
-                    $event->stopPropagation();
-                }
-            }
-        );
+        $headers = $this->getRequestHeaders();
+        $headers['Authorization'] = 'Basic ' . base64_encode($apiKey . ':');
 
-        if ($this->getSSLCertificatePath()) {
-            $this->httpClient->setSslVerification($this->getSSLCertificatePath());
-        }
+        $body = $data ? http_build_query($data, '', '&') : null;
 
-        $request = $this->httpClient->createRequest(
+        $response = $this->httpClient->request(
             $this->getHttpMethod(),
             $this->getEndpoint(),
-            $this->getRequestHeaders(),
-            $data
+            $headers,
+            $body,
+            '1.2' // Enforce TLS v1.2
         );
 
-        // get the appropriate API key
-        $apikey = ($this->getUseSecretKey()) ? $this->getApiKeySecret() : $this->getApiKeyPublic();
-        $request->setHeader('Authorization', 'Basic ' . base64_encode($apikey . ':'));
-
-        // send the request
-        $response = $request->send();
-
-        $this->response = new Response($this, $response->json());
+        $this->response = new Response($this, json_decode($response->getBody()->getContents(), true));
 
         // save additional info
         $this->response->setHttpResponseCode($response->getStatusCode());
         $this->response->setTransactionType($this->getTransactionType());
 
         return $this->response;
-    }
-
-    /**
-     * Add multiple parameters to data
-     * @param array $data  Data array
-     * @param array $parms Parameters to add to data
-     */
-    public function addToData(array $data = array(), array $parms = array())
-    {
-        foreach ($parms as $parm) {
-            $getter = 'get' . ucfirst($parm);
-            if (method_exists($this, $getter) && $this->$getter()) {
-                $data[$parm] = $this->$getter();
-            }
-        }
-
-        return $data;
     }
 }
