@@ -20,14 +20,14 @@ class CreateSingleUseCardTokenRequest extends AbstractRequest
         // PayWay requires two digit expiry month.
         $expiryDateMonth = str_pad($this->getCard()->getExpiryMonth(), 2, 0, STR_PAD_LEFT);
 
-        return array(
+        return [
             'paymentMethod' => 'creditCard',
             'cardNumber' => $this->getCard()->getNumber(),
             'cardholderName' => $this->getCard()->getName(),
             'cvn' => $this->getCard()->getCvv(),
             'expiryDateMonth' => $expiryDateMonth,
             'expiryDateYear' => $this->getCard()->getExpiryYear(),
-        );
+        ];
     }
 
     /**

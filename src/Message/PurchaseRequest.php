@@ -19,11 +19,11 @@ class PurchaseRequest extends AbstractRequest
             'currency'
         );
 
-        $data = array(
+        $data = [
             'customerNumber'  => $this->getCustomerNumber(),
             'transactionType' => 'payment',
             'currency'        => $this->getCurrency(),
-        );
+        ];
 
         // Has the Money class been used to set the amount?
         if ($this->getAmount() instanceof Money) {

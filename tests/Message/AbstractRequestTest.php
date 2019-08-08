@@ -1,15 +1,16 @@
 <?php
 
-namespace Omnipay\WestpacPaywayRest\Message;
+namespace Omnipay\WestpacPaywayRest\Test\Message;
 
 use Mockery;
 use Omnipay\Tests\TestCase;
+use Omnipay\WestpacPaywayRest\Message\AbstractRequest;
 
 class AbstractRequestTest extends TestCase
 {
     public function setUp()
     {
-        $this->request = Mockery::mock('\Omnipay\WestpacPaywayRest\Message\AbstractRequest')->makePartial();
+        $this->request = Mockery::mock(AbstractRequest::class)->makePartial();
         $this->request->initialize();
     }
 

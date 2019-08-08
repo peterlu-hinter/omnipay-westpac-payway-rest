@@ -1,8 +1,9 @@
 <?php
 
-namespace Omnipay\WestpacPaywayRest\Message;
+namespace Omnipay\WestpacPaywayRest\Test\Message;
 
 use Omnipay\Tests\TestCase;
+use Omnipay\WestpacPaywayRest\Message\PurchaseRequest;
 
 class PurchaseRequestTest extends TestCase
 {
@@ -23,7 +24,6 @@ class PurchaseRequestTest extends TestCase
     public function testGetData()
     {
         $this->request->setCustomerNumber('ABC123');
-        $this->request->setOrderNumber('456');
         $this->request->setSingleUseTokenId('EFG789');
 
         $data = $this->request->getData();
@@ -32,7 +32,6 @@ class PurchaseRequestTest extends TestCase
         $this->assertEquals('10.00',   $data['principalAmount']);
         $this->assertEquals('usd',     $data['currency']);
         $this->assertEquals('ABC123',  $data['customerNumber']);
-        $this->assertEquals('456',     $data['orderNumber']);
         $this->assertEquals('EFG789',  $data['singleUseTokenId']);
     }
 }

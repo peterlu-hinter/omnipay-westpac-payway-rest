@@ -166,12 +166,12 @@ class Response extends AbstractResponse
      */
     public function getCode()
     {
-        return join(' ', array(
+        return join(' ', [
             $this->getResponseCode(),
             $this->getResponseText(),
             '(' . $this->getHttpResponseCode(),
             $this->getHttpResponseCodeText() . ')',
-        ));
+        ]);
     }
 
     /**

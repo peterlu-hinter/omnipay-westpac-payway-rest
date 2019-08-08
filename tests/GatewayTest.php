@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\WestpacPaywayRest;
+namespace Omnipay\WestpacPaywayRest\Test;
 
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
@@ -8,6 +8,7 @@ use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
 use Omnipay\Common\CreditCard;
 use Omnipay\Tests\GatewayTestCase;
+use Omnipay\WestpacPaywayRest\Gateway;
 
 /**
  * @property Gateway gateway
