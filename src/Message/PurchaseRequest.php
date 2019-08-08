@@ -39,11 +39,11 @@ class PurchaseRequest extends AbstractRequest
         if ($this->getMerchantId()) {
             $data['merchantId'] = $this->getMerchantId();
         }
-        if ($this->getBankAccountId()) {
-            $data['bankAccountId'] = $this->getBankAccountId();
-        }
         if ($this->getSingleUseTokenId()){
             $data['singleUseTokenId'] = $this->getSingleUseTokenId();
+        }
+        if ($this->getCustomerIpAddress()){
+            $data['customerIpAddress'] = $this->getCustomerIpAddress();
         }
 
         return $data;
