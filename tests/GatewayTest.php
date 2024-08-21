@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\WestpacPaywayRest\Test;
+namespace Omnipay\PaywayRest\Test;
 
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
@@ -8,7 +8,7 @@ use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
 use Omnipay\Common\CreditCard;
 use Omnipay\Tests\GatewayTestCase;
-use Omnipay\WestpacPaywayRest\Gateway;
+use Omnipay\PaywayRest\Gateway;
 
 /**
  * @property Gateway gateway
@@ -36,7 +36,7 @@ class GatewayTest extends GatewayTestCase
             ]),
         ]);
 
-        $this->assertInstanceOf('Omnipay\WestpacPaywayRest\Message\CreateSingleUseCardTokenRequest', $request);
+        $this->assertInstanceOf('Omnipay\PaywayRest\Message\CreateSingleUseCardTokenRequest', $request);
         $data = $request->getData();
 
         $this->assertEquals('creditCard',           $data['paymentMethod']);
@@ -57,7 +57,7 @@ class GatewayTest extends GatewayTestCase
             'singleUseTokenId' => 'EFG789',
         ]);
 
-        $this->assertInstanceOf('Omnipay\WestpacPaywayRest\Message\PurchaseRequest', $request);
+        $this->assertInstanceOf('Omnipay\PaywayRest\Message\PurchaseRequest', $request);
         $this->assertSame('10.00', $request->getAmount());
 
         $data = $request->getData();
@@ -83,7 +83,7 @@ class GatewayTest extends GatewayTestCase
 
         $request->setMoney($money);
 
-        $this->assertInstanceOf('Omnipay\WestpacPaywayRest\Message\PurchaseRequest', $request);
+        $this->assertInstanceOf('Omnipay\PaywayRest\Message\PurchaseRequest', $request);
         $this->assertSame($money, $request->getAmount());
         $this->assertSame('10.00', (new DecimalMoneyFormatter(new ISOCurrencies()))->format($request->getAmount()));
 

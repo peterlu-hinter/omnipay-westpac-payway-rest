@@ -6,10 +6,10 @@
  * Time: 21:30
  */
 
-namespace Omnipay\WestpacPaywayRest\Test\Message;
+namespace Omnipay\PaywayRest\Test\Message;
 
 use Omnipay\Tests\TestCase;
-use Omnipay\WestpacPaywayRest\Message\CreateSingleUseCardTokenRequest;
+use Omnipay\PaywayRest\Message\CreateSingleUseCardTokenRequest;
 
 class CreateSingleUseCardTokenRequestTest extends TestCase
 {

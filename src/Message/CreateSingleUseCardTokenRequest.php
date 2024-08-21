@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\WestpacPaywayRest\Message;
+namespace Omnipay\PaywayRest\Message;
 
 use Omnipay\Common\Exception\InvalidRequestException;
 

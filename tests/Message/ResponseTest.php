@@ -1,9 +1,9 @@
 <?php
 
-namespace Omnipay\WestpacPaywayRest\Test\Message;
+namespace Omnipay\PaywayRest\Test\Message;
 
 use Omnipay\Tests\TestCase;
-use Omnipay\WestpacPaywayRest\Message\Response;
+use Omnipay\PaywayRest\Message\Response;
 
 class ResponseTest extends TestCase
 {

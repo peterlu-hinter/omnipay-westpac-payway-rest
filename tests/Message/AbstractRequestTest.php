@@ -1,10 +1,10 @@
 <?php
 
-namespace Omnipay\WestpacPaywayRest\Test\Message;
+namespace Omnipay\PaywayRest\Test\Message;
 
 use Mockery;
 use Omnipay\Tests\TestCase;
-use Omnipay\WestpacPaywayRest\Message\AbstractRequest;
+use Omnipay\PaywayRest\Message\AbstractRequest;
 
 class AbstractRequestTest extends TestCase
 {

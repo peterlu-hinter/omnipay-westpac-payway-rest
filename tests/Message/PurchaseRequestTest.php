@@ -1,14 +1,14 @@
 <?php
 
-namespace Omnipay\WestpacPaywayRest\Test\Message;
+namespace Omnipay\PaywayRest\Test\Message;
 
 use Omnipay\Tests\TestCase;
-use Omnipay\WestpacPaywayRest\Message\PurchaseRequest;
+use Omnipay\PaywayRest\Message\PurchaseRequest;
 
 class PurchaseRequestTest extends TestCase
 {
     /**
-     * @var \Omnipay\WestpacPaywayRest\Message\PurchaseRequest
+     * @var \Omnipay\PaywayRest\Message\PurchaseRequest
      */
     protected $request;
 

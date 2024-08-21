@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\WestpacPaywayRest\Message;
+namespace Omnipay\PaywayRest\Message;
 
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;

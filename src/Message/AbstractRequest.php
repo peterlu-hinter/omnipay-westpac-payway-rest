@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\WestpacPaywayRest\Message;
+namespace Omnipay\PaywayRest\Message;
 
 /**
  * @link https://www.payway.com.au/rest-docs/index.html
@@ -231,7 +231,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
      *
      * @param $data
      *
-     * @return \Omnipay\Common\Message\ResponseInterface|\Omnipay\WestpacPaywayRest\Message\Response
+     * @return \Omnipay\Common\Message\ResponseInterface|\Omnipay\PaywayRest\Message\Response
      */
     public function sendData($data)
     {

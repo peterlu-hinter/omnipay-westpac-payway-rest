@@ -1,10 +1,10 @@
 <?php
 
-namespace Omnipay\WestpacPaywayRest;
+namespace Omnipay\PaywayRest;
 
 use Omnipay\Common\AbstractGateway;
-use Omnipay\WestpacPaywayRest\Message\CreateSingleUseCardTokenRequest;
-use Omnipay\WestpacPaywayRest\Message\PurchaseRequest;
+use Omnipay\PaywayRest\Message\CreateSingleUseCardTokenRequest;
+use Omnipay\PaywayRest\Message\PurchaseRequest;
 
 /**
  * @method \Omnipay\Common\Message\RequestInterface authorize(array $options = array())         (Optional method)
@@ -127,7 +127,7 @@ class Gateway extends AbstractGateway
      * Purchase request
      *
      * @param array $parameters
-     * @return \Omnipay\WestpacPaywayRest\Message\PurchaseRequest|\Omnipay\Common\Message\AbstractRequest
+     * @return \Omnipay\PaywayRest\Message\PurchaseRequest|\Omnipay\Common\Message\AbstractRequest
      */
     public function purchase(array $parameters = array())
     {
@@ -138,7 +138,7 @@ class Gateway extends AbstractGateway
      * Create singleUseTokenId with a CreditCard
      *
      * @param array $parameters
-     * @return \Omnipay\WestpacPaywayRest\Message\CreateSingleUseCardTokenRequest|\Omnipay\Common\Message\AbstractRequest
+     * @return \Omnipay\PaywayRest\Message\CreateSingleUseCardTokenRequest|\Omnipay\Common\Message\AbstractRequest
      */
     public function createSingleUseCardToken(array $parameters = array())
     {
