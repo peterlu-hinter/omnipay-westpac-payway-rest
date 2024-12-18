@@ -5,9 +5,6 @@ namespace Omnipay\PaywayRest;
 use Omnipay\Common\AbstractGateway;
 use Omnipay\PaywayRest\Message\CreateSingleUseCardTokenRequest;
 use Omnipay\PaywayRest\Message\PurchaseRequest;
-use SilverStripe\Core\Injector\Injector;
-use Psr\Log\LoggerInterface;
-use SilverStripe\Dev\Debug;
 
 /**
  * @method \Omnipay\Common\Message\RequestInterface authorize(array $options = array())         (Optional method)
