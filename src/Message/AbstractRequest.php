@@ -259,4 +259,15 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
         return $this->response;
     }
+
+    // modified
+    public function getParentTransactionId()
+    {
+        return $this->getParameter('parentTransactionId');
+    }
+
+    public function setParentTransactionId($value)
+    {
+        return $this->setParameter('parentTransactionId', $value);
+    }
 }

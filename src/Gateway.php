@@ -5,6 +5,9 @@ namespace Omnipay\PaywayRest;
 use Omnipay\Common\AbstractGateway;
 use Omnipay\PaywayRest\Message\CreateSingleUseCardTokenRequest;
 use Omnipay\PaywayRest\Message\PurchaseRequest;
+use SilverStripe\Core\Injector\Injector;
+use Psr\Log\LoggerInterface;
+use SilverStripe\Dev\Debug;
 
 /**
  * @method \Omnipay\Common\Message\RequestInterface authorize(array $options = array())         (Optional method)
@@ -143,5 +146,49 @@ class Gateway extends AbstractGateway
     public function createSingleUseCardToken(array $parameters = array())
     {
         return $this->createRequest(CreateSingleUseCardTokenRequest::class, $parameters);
+    }
+
+        /**
+     * Get List of Transactions by receiptNumber (stored in OmniPay as transactionReference)
+     * @param array $parameters
+     * @return \Omnipay\PaywayRest\Message\TransactionsRequest
+     */
+    public function getTransactions(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\PaywayRest\Message\TransactionsRequest', $parameters);
+    }
+
+    /**
+     * Refund (or Void) request
+     * @param array $parameters
+     * @return \Omnipay\PaywayRest\Message\RefundRequest
+     */
+    public function refund(array $parameters = array())
+    {
+        // note that transactionReference is not reliable, so we do an extra lookup.
+        $refundParams = [
+            'principalAmount' => $parameters['amount'],
+            'parentTransactionId' => $parameters['transactionReference']
+        ];
+        $voidParams = [];
+        $transactions = $this->getTransactions($parameters);
+        $response = $transactions->send();
+        $data = $response->getData('data');
+        if ($data && isset($data[0]) && isset($data[0]['transactionId'])) {
+            $refundParams['parentTransactionId'] = $data[0]['transactionId'];
+            $voidParams['transactionId'] = $data[0]['transactionId'];
+
+        }
+        // note that transaction might not be refundable, so we do an extra lookup.
+        $transaction = $this->getTransactionDetails(['transactionId' => $data[0]['transactionId']]);
+        $response = $transaction->send();
+        $canRefund = $response->getData('isRefundable');
+        $canVoid = $response->getData('isVoidable');
+        if ($canRefund) {
+            return $this->createRequest('\Omnipay\PaywayRest\Message\RefundRequest', $refundParams);
+        } elseif ($canVoid) {
+            return $this->createRequest('\Omnipay\PaywayRest\Message\VoidRequest', $voidParams);
+        }
+
     }
 }
